@@ -2,7 +2,7 @@ import sqlite3
 
 #database = r"C:\Users\Дмитрий\Documents\Python\Bot\ComService.db"
 database = r'ComService.db'
-conn = sqlite3.connect(database)
+conn = sqlite3.connect(database, check_same_thread=False)
 cursor = conn.cursor()
 
 def db_table_add(ligth: float, c_water: float, h_water: float):
@@ -49,4 +49,3 @@ def delete_last_record():
         if conn:
             conn.close()
             print('Соединение с SQLite закрыто')
-delete_last_record()

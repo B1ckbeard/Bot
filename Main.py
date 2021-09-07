@@ -34,10 +34,10 @@ def answer(call):
     elif call.data == 'save':#сохранить показания в БД
         saveData()
         bot.send_message(call.message.chat.id, 'Сохранено')
-        markup_inline2 = types.InlineKeyboardMarkup()
-        item3 = types.InlineKeyboardButton(text = 'сумма', callback_data= 'price')
-        markup_inline2.add(item3)
-        bot.send_message(call.message.chat.id, 'Посчитать сумму?', reply_markup = markup_inline2)
+        #markup_inline2 = types.InlineKeyboardMarkup()
+        #item3 = types.InlineKeyboardButton(text = 'сумма', callback_data= 'price')
+        #markup_inline2.add(item3)
+        #bot.send_message(call.message.chat.id, 'Посчитать сумму?', reply_markup = markup_inline2)
     elif call.data == 'price':#пок. в текущем месяце - пок. пред. месяца * тариф
         sent = bot.send_message(call.message.chat.id, Com_service.priceSum())
     elif call.data == 'del':
