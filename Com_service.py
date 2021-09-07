@@ -9,14 +9,14 @@ def db_table_add(ligth: float, c_water: float, h_water: float):
 	cursor.execute('INSERT INTO flat25 (light, c_water, h_water) VALUES (?, ?, ?)', (ligth, c_water, h_water))
 	conn.commit()
 
-def select():
+def select_last_record():
     sel = 'SELECT light AS Свет, c_water AS х_вода, h_water AS г_вода FROM flat25 WHERE id=(SELECT MAX(id) FROM flat25)';
     cursor.execute(sel)
     rows = cursor.fetchall()
     s = (f'свет: {rows[0][0]}, х_вода: {rows[0][1]}, г_вода: {rows[0][2]}')
     return s
 
-def priceSum():
+def price_sum():
     el_price = 5.93
     c_water_price = 24.98
     h_water_price = 169.6
