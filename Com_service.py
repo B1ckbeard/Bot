@@ -20,17 +20,21 @@ def priceSum():
     el_price = 5.93
     c_water_price = 24.98
     h_water_price = 169.6
-    sel = 'SELECT light AS Свет, c_water, h_water FROM flat25 WHERE id=(SELECT MAX(id-1) FROM flat25)';
+    id = 'SELECT id FROM flat25'
+    cursor.execute(id)
+    id_rows = cursor.fetchall()
+    second_last_id = str(id_rows[-2]).replace(',', '').replace('(','').replace(')','')
+    sel = f'SELECT light AS Свет, c_water, h_water FROM flat25 WHERE id={second_last_id}';
     cursor.execute(sel)
     rows = cursor.fetchall()
-    #s = (f'свет: {rows[0][0]}, х_вода: {rows[0][1]}, г_вода: {rows[0][2]}')
+    s = (f'свет: {rows[0][0]}, х_вода: {rows[0][1]}, г_вода: {rows[0][2]}')
     last = 'SELECT light AS Свет, c_water, h_water FROM flat25 WHERE id=(SELECT MAX(id) FROM flat25)';
     cursor.execute(last)
     rows1 = cursor.fetchall()
-    #s1 = (f'свет: {rows1[0][0]}, х_вода: {rows1[0][1]}, г_вода: {rows1[0][2]}')
+    s1 = (f'свет: {rows1[0][0]}, х_вода: {rows1[0][1]}, г_вода: {rows1[0][2]}')
     price = ((rows1[0][0]-rows[0][0])*el_price)+((rows1[0][1]-rows[0][1])*c_water_price)+((rows1[0][2]-rows[0][2])*h_water_price)
-    price1 = (f'{round(price,2)} руб.')
-    return price1
+    price = (f'{round(price,2)} руб.')
+    return price
 
 def delete_last_record():
     try:
