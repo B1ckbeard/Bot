@@ -1,1 +1,1 @@
-worker: python Bot.py $PORT
+worker: python Main.py
