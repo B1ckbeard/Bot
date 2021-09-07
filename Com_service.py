@@ -32,5 +32,8 @@ def priceSum():
     price1 = (f'{round(price,2)} руб.')
     return price1
 
-
-#print(priceSum())
+def delLast():
+    req = 'DELETE FROM flat25 WHERE id=(SELECT MAX(id) FROM flat25)';
+    cursor.execute(req)
+    conn.commit()
+    print('Последняя запись удалена')

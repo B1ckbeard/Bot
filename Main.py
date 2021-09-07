@@ -20,7 +20,8 @@ def get_user_info(message):
     markup_inline = types.InlineKeyboardMarkup()
     item1 = types.InlineKeyboardButton(text = 'Last info', callback_data= 'last')
     item2 = types.InlineKeyboardButton(text = 'Add', callback_data= 'add')
-    markup_inline.add(item1, item2)
+    item3 = types.InlineKeyboardButton(text = 'Delete last', callback_data= 'del')
+    markup_inline.add(item1, item2, item3)
     bot.send_message(message.chat.id, 'Выберите:', reply_markup = markup_inline)
 
 @bot.callback_query_handler(func = lambda call: True)
@@ -31,14 +32,17 @@ def answer(call):
         mes1 = bot.send_message(call.message.chat.id, 'Введите показание счетчика электроэнергии:')
         bot.register_next_step_handler(mes1, electricityIndication)
     elif call.data == 'save':#сохранить показания в БД
-        bot.send_message(call.message.chat.id, 'Сохранено')
         saveData()
+        bot.send_message(call.message.chat.id, 'Сохранено')
         markup_inline2 = types.InlineKeyboardMarkup()
         item3 = types.InlineKeyboardButton(text = 'сумма', callback_data= 'price')
         markup_inline2.add(item3)
         bot.send_message(call.message.chat.id, 'Посчитать сумму?', reply_markup = markup_inline2)
     elif call.data == 'price':#пок. в текущем месяце - пок. пред. месяца * тариф
         sent = bot.send_message(call.message.chat.id, Com_service.priceSum())
+    elif call.data == 'del':
+        bot.send_message(call.message.chat.id, 'Последняя запись удалена')
+
 
 def electricityIndication(message):
     global el_ind
@@ -73,6 +77,10 @@ def showInditations(message):
 def saveData():
     Com_service.db_table_add(float(el_ind), float(c_water), float(h_water))
     print('data saved')
+    
+#Удалить последнюю запись
+def delData():
+    Com_service.delLast()
 
 
 @bot.message_handler(content_types=['text'])
