@@ -41,6 +41,7 @@ def answer(call):
     elif call.data == 'price':#пок. в текущем месяце - пок. пред. месяца * тариф
         sent = bot.send_message(call.message.chat.id, Com_service.priceSum())
     elif call.data == 'del':
+        delData()
         bot.send_message(call.message.chat.id, 'Последняя запись удалена')
 
 
@@ -77,10 +78,10 @@ def showInditations(message):
 def saveData():
     Com_service.db_table_add(float(el_ind), float(c_water), float(h_water))
     print('data saved')
-    
+
 #Удалить последнюю запись
 def delData():
-    Com_service.delLast()
+    Com_service.delete_last_record()
 
 
 @bot.message_handler(content_types=['text'])

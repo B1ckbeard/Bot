@@ -1,8 +1,8 @@
 import sqlite3
 
 #database = r"C:\Users\Дмитрий\Documents\Python\Bot\ComService.db"
-database = r"ComService.db"
-conn = sqlite3.connect(database, check_same_thread=False)
+database = r'ComService.db'
+conn = sqlite3.connect(database)
 cursor = conn.cursor()
 
 def db_table_add(ligth: float, c_water: float, h_water: float):
@@ -32,8 +32,21 @@ def priceSum():
     price1 = (f'{round(price,2)} руб.')
     return price1
 
-def delLast():
-    req = 'DELETE FROM flat25 WHERE id=(SELECT MAX(id) FROM flat25)';
-    cursor.execute(req)
-    conn.commit()
-    print('Последняя запись удалена')
+def delete_last_record():
+    try:
+        conn = sqlite3.connect(database)
+        cursor = conn.cursor()
+        print('Подключен к БД')
+
+        req = 'DELETE FROM flat25 WHERE id=(SELECT MAX(id) FROM flat25)';
+        cursor.execute(req)
+        conn.commit()
+        print('Последняя запись удалена')
+        cursor.close()
+    except sqlite3.Error as error:
+        print('Ошибка при работе с SQLite', error)
+    finally:
+        if conn:
+            conn.close()
+            print('Соединение с SQLite закрыто')
+delete_last_record()
