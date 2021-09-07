@@ -33,4 +33,4 @@ def priceSum():
     return price1
 
 
-print(priceSum())
+#print(priceSum())
