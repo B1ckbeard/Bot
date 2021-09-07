@@ -1,6 +1,7 @@
 import sqlite3
 
-database = r"C:\Users\Дмитрий\Documents\Python\Bot\ComService.db"
+#database = r"C:\Users\Дмитрий\Documents\Python\Bot\ComService.db"
+database = r"ComService.db"
 conn = sqlite3.connect(database, check_same_thread=False)
 cursor = conn.cursor()
 

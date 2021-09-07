@@ -1,10 +1,11 @@
 import telebot
-from telebot.apihelper import ENABLE_MIDDLEWARE
+#from telebot.apihelper import ENABLE_MIDDLEWARE
 import config
 from telebot import types
+#from telebot.types import *
 
 import Com_service
-import Com_service_35
+#import Com_service_35
 #import Munchkin
 #import Dice_roll
 
@@ -73,7 +74,7 @@ def saveData():
     Com_service.db_table_add(float(el_ind), float(c_water), float(h_water))
     print('data saved')
 
-'''
+
 @bot.message_handler(content_types=['text'])
 def send_hello(message):
     if message.text == 'привет' or message.text == 'Привет':
@@ -81,6 +82,6 @@ def send_hello(message):
     elif message.text == 'Пока' or message.text == 'пока':
         bot.send_message(message.from_user.id, 'Всего хорошего!')
     elif message.text == 'Мяу':
-        bot.send_message(message.from_user.id, 'мау-мау)')'''
+        bot.send_message(message.from_user.id, 'мау-мау)')
 
 bot.polling(none_stop=True)
